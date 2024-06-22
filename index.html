@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Vueを使って連動するセレクトボックス</h1>
+    <div id="app">
+        <h5>【市】</h5>
+        <select name="city_id" v-model="selectedCityId" @change="onChangeCity">
+            <option></option>
+            <option v-for="city in cities" :value="city.id" v-text="city.name"></option>
+        </select>
+        <h5>【区】</h5>
+        <select name="ward_id" v-model="selectedWardId">
+            <option></option>
+            <option v-for="ward in filteredWards" :value="ward.id" v-text="ward.name"></option>
+        </select>
+        <hr>
+        <div>
+            <h5>【選択された値】</h5>
+            市: <strong v-text="selectedCityId"></strong><br>
+            区: <strong v-text="selectedWardId"></strong>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script>
+
+        new Vue({
+            el: '#app',
+            data: {
+                cities: [],//jsonからとってきたデータを入れる
+                wards: [],//jsonからとってきたデータを入れる
+                selectedCityId: -1, //何市が選択されたか
+                selectedWardId: -1 //何区が選択されたか
+            },
+            methods: {
+                 //市が変わったら実行
+                onChangeCity() {
+                    //区の選択をリセットする
+                    this.selectedWardId = -1;
+                    // もし市が選択されてなかったら
+                    if(!this.selectedCityId) {
+                        //市の値をリセット
+                        this.selectedCityId = -1;
+
+                    }
+
+                }
+            },
+            computed: {
+                //選択された市に関連する区のリストを返す
+                filteredWards() {
+                    // フィルタリングされた区を格納するための空の配列
+                    let filteredWards = [];
+
+                    for(let i = 0 ; i < this.wards.length ; i++) {
+                        let ward = this.wards[i];
+                        //選んだ市のIDが２だったら、区の配列の中から、cityIdが２の配列を抽出
+                        if(ward.cityId == this.selectedCityId) {
+                            filteredWards.push(ward);
+                        }
+                    }
+                    return filteredWards;
+
+                }
+            },
+            mounted() {
+                //JSONファイルからデータを取得
+                axios.get('json/city-wards.json')
+                    .then((response) => {
+                        // データをVueインスタンスのデータプロパティに設定
+                        this.cities = response.data.cities;
+                        this.wards = response.data.wards;
+
+                    });
+
+            }
+        });
+
+    </script>
+</body>
+</html>
