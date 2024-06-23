@@ -1,0 +1,36 @@
+{
+  "makers": [
+    { "id": 1, "name": "メーカー１" },
+    { "id": 2, "name": "メーカー２" },
+    { "id": 3, "name": "メーカー３" }
+  ],
+  "cars": [
+    { "makerId": 1, "id": 1, "name": "車種1" },
+    { "makerId": 1, "id": 2, "name": "車種2" },
+    { "makerId": 1, "id": 3, "name": "車種3" },
+    { "makerId": 1, "id": 4, "name": "車種4" },
+    { "makerId": 1, "id": 5, "name": "車種5" },
+
+    { "makerId": 2, "id": 6, "name": "車種6" },
+    { "makerId": 2, "id": 7, "name": "車種7" },
+    { "makerId": 2, "id": 8, "name": "車種8" },
+    { "makerId": 2, "id": 9, "name": "車種9" },
+    { "makerId": 2, "id": 10, "name": "車種10" },
+
+    { "makerId": 3, "id": 11, "name": "車種11" },
+    { "makerId": 3, "id": 12, "name": "車種12" },
+    { "makerId": 3, "id": 13, "name": "車種13" },
+    { "makerId": 3, "id": 14, "name": "車種14" },
+    { "makerId": 3, "id": 15, "name": "車種15" }
+  ],
+  "tags": [
+    { "id": 1, "name": "タグ1" },
+    { "id": 2, "name": "タグ2" },
+    { "id": 3, "name": "タグ3" }
+  ],
+  "ages": [
+    { "id": 1, "name": "50代" },
+    { "id": 2, "name": "60代" },
+    { "id": 3, "name": "70代" }
+  ]
+}
